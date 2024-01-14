@@ -13,9 +13,15 @@
         <module>proxy-example</module>
         <module>proxy-api</module>
         <module>dubbo-provider</module>
+        <module>proxy-spring-web-starter</module>
+        <module>proxy-support</module>
+        <module>proxy-utils</module>
+        <module>proxy-dubbo-starter</module>
     </modules>
 
     <properties>
+        <project.version>1.0-SNAPSHOT</project.version>
+
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,10 +29,34 @@
         <dubbo.version>3.3.0-beta.1</dubbo.version>
         <spring-boot.version>2.7.8</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <lombok.version>1.18.24</lombok.version>
+        <guava.version>27.0.1-jre</guava.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>xyz.me4cxy.rpc-proxy</groupId>
+                <artifactId>proxy-support</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xyz.me4cxy.rpc-proxy</groupId>
+                <artifactId>proxy-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xyz.me4cxy.rpc-proxy</groupId>
+                <artifactId>proxy-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xyz.me4cxy.rpc-proxy</groupId>
+                <artifactId>proxy-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Spring Boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -51,10 +81,37 @@
                 <version>${dubbo.version}</version>
                 <type>pom</type>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
