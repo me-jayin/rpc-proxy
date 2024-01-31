@@ -13,7 +13,7 @@ import java.util.Map;
  * @author jayin
  * @since 2024/01/01
  */
-@DubboService
+@DubboService(group = "test", version = "1.2")
 public class LocalUserServiceImpl implements UserService {
 
     Map<String, User> USERS = new HashMap<>();

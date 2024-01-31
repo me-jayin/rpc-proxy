@@ -1,4 +1,4 @@
-package xyz.me4cxy.proxy.web.support;
+package xyz.me4cxy.proxy.web.http;
 
 import xyz.me4cxy.proxy.support.context.ProxyRequest;
 import xyz.me4cxy.proxy.utils.ListUtils;

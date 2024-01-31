@@ -35,7 +35,8 @@ public class DubboProxyIdentify implements ProxyIdentify {
      * 服务标识符，{service}:{version}:{group}
      * @return
      */
-    public String serviceIdentity() {
+    @Override
+    public String identityKey() {
         return JOINER.join(Arrays.asList(service, version, group));
     }
 

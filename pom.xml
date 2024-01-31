@@ -13,10 +13,11 @@
         <module>proxy-example</module>
         <module>proxy-api</module>
         <module>dubbo-provider</module>
-        <module>proxy-spring-web-starter</module>
-        <module>proxy-support</module>
+        <module>proxy-dubbo-web-starter</module>
         <module>proxy-utils</module>
         <module>proxy-dubbo-starter</module>
+        <module>proxy-web-support</module>
+        <module>proxy-dubbo-zookeeper</module>
     </modules>
 
     <properties>
@@ -38,11 +39,6 @@
 
             <dependency>
                 <groupId>xyz.me4cxy.rpc-proxy</groupId>
-                <artifactId>proxy-support</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>xyz.me4cxy.rpc-proxy</groupId>
                 <artifactId>proxy-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -54,6 +50,11 @@
             <dependency>
                 <groupId>xyz.me4cxy.rpc-proxy</groupId>
                 <artifactId>proxy-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xyz.me4cxy.rpc-proxy</groupId>
+                <artifactId>proxy-dubbo-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

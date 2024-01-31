@@ -1,6 +1,6 @@
 dubbo:
   application:
-    name: dubbo-provider
+    name: test-provider
   protocol:
     name: dubbo
     port: -1

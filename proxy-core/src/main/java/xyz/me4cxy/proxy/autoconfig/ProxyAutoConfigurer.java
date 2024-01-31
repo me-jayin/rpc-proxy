@@ -1,4 +1,4 @@
-package xyz.me4cxy.proxy.config;
+package xyz.me4cxy.proxy.autoconfig;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -16,7 +16,7 @@ public class ProxyAutoConfigurer {
 
     @Bean
     @ConditionalOnMissingBean(RpcProxy.class)
-    public RpcProxy dubboProxy() {
+    public RpcProxy rpcProxy() {
         return new RpcProxy();
     }
 

@@ -8,4 +8,10 @@ package xyz.me4cxy.proxy.core;
  */
 public interface ProxyIdentify {
 
+    /**
+     * 标识key
+     * @return
+     */
+    String identityKey();
+
 }

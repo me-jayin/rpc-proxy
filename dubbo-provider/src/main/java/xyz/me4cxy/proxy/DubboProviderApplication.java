@@ -16,6 +16,7 @@ public class DubboProviderApplication {
 
     public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(DubboProviderApplication.class, args);
+        System.out.println("启动成功");
         Thread.currentThread().join();
     }
 

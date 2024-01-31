@@ -9,7 +9,7 @@ import xyz.me4cxy.proxy.core.ProxyIdentify;
  * @author jayin
  * @since 2024/01/07
  */
-public interface ProxyIdentifyMapping {
+public interface  ProxyIdentifyMapping {
 
     /**
      * 获得代理标识
