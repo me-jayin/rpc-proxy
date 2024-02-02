@@ -10,8 +10,7 @@ import org.apache.dubbo.rpc.model.ApplicationModel;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import xyz.me4cxy.proxy.core.ProxyIdentify;
-import xyz.me4cxy.proxy.core.metadata.service.CacheableProxyMetadataService;
-import xyz.me4cxy.proxy.core.metadata.ProxyMetadata;
+import xyz.me4cxy.proxy.dubbo.metadata.ProxyServiceMetadata;
 import xyz.me4cxy.proxy.dubbo.DubboProxyIdentify;
 import xyz.me4cxy.proxy.exception.NotFoundServiceException;
 
@@ -37,7 +36,7 @@ public class DefaultDubboProxyMetadataService extends CacheableProxyMetadataServ
 
 
     @Override
-    public ProxyMetadata loadMetadata0(ProxyIdentify identify) {
+    public ProxyServiceMetadata loadMetadata0(ProxyIdentify identify) {
         DubboProxyIdentify proxyIdentify = (DubboProxyIdentify) identify;
         MetadataIdentifier identifier = new MetadataIdentifier();
         identifier.setApplication(proxyIdentify.getApplication());

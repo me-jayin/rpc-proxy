@@ -8,5 +8,5 @@ import java.io.Serializable;
  * @author jayin
  * @since 2024/01/31
  */
-public class ProxyMethodMetadata implements Serializable {
+public interface ProxyMethodMetadata extends Serializable {
 }

@@ -1,7 +1,7 @@
-package xyz.me4cxy.proxy.core.metadata.service;
+package xyz.me4cxy.proxy.dubbo.metadata.service;
 
 import xyz.me4cxy.proxy.core.ProxyIdentify;
-import xyz.me4cxy.proxy.core.metadata.ProxyMetadata;
+import xyz.me4cxy.proxy.dubbo.metadata.ProxyServiceMetadata;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,10 +16,10 @@ public abstract class CacheableProxyMetadataService implements ProxyMetadataServ
     /**
      * 元数据缓存
      */
-    private final Map<String, ProxyMetadata> metadataCache = new ConcurrentHashMap<>();
+    private final Map<String, ProxyServiceMetadata> metadataCache = new ConcurrentHashMap<>();
 
     @Override
-    public ProxyMetadata loadMetadata(ProxyIdentify identify) {
+    public ProxyServiceMetadata loadMetadata(ProxyIdentify identify) {
         return metadataCache.computeIfAbsent(identify.identityKey(), key -> loadMetadata0(identify));
     }
 
@@ -28,6 +28,6 @@ public abstract class CacheableProxyMetadataService implements ProxyMetadataServ
      * @param identify
      * @return
      */
-    protected abstract ProxyMetadata loadMetadata0(ProxyIdentify identify);
+    protected abstract ProxyServiceMetadata loadMetadata0(ProxyIdentify identify);
 
 }

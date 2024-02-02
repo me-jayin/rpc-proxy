@@ -31,7 +31,10 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>xyz.me4cxy.rpc-proxy</groupId>
+            <artifactId>proxy-utils</artifactId>
+        </dependency>
         <dependency>
             <groupId>xyz.me4cxy.rpc-proxy</groupId>
             <artifactId>proxy-core</artifactId>
