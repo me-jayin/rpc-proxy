@@ -21,9 +21,13 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class PathPatternUtils {
+    /** 匹配路径单块片段 */
     public final static String SINGLE_SEGMENT = "[a-zA-Z0-9\\-_]+";
+    /** 匹配路径多块片段 */
     public final static String MULTIPLE_SEGMENT = "[a-zA-Z0-9/\\-_]+";
+    /** Pattern 缓存 */
     private final static Map<String, Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
+    /** 路径匹配结果缓存 */
     private final static Map<String, Map<String, String>> MATCH_RESULT_CACHE = new ConcurrentHashMap<>();
 
     public static final String PATH_GROUP_APPLICATION = "application";

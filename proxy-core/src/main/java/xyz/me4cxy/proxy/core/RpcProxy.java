@@ -1,6 +1,8 @@
 package xyz.me4cxy.proxy.core;
 
 import lombok.extern.slf4j.Slf4j;
+import xyz.me4cxy.proxy.core.invoker.Invoker;
+import xyz.me4cxy.proxy.core.invoker.InvokerFactory;
 import xyz.me4cxy.proxy.core.mapping.ProxyIdentifyMappingChain;
 import xyz.me4cxy.proxy.exception.ProxyException;
 
@@ -13,6 +15,7 @@ import xyz.me4cxy.proxy.exception.ProxyException;
 @Slf4j
 public class RpcProxy {
     private ProxyIdentifyMappingChain chain;
+    private InvokerFactory<ProxyIdentify> factory;
 
     public Object proxy(ProxyRequestContext context) {
         ProxyIdentify identify = chain.getIdentify(context);
@@ -23,6 +26,11 @@ public class RpcProxy {
         log.info("请求路径映射后取到代理信息：{}", identify);
 
         // 创建代理调用上下文
+        Invoker<ProxyIdentify> invoker = factory.createInvoker(identify);
+
+        // TODO 执行前置拦截器等
+        // 获取调用结果
+        Object res = invoker.invoke(context);
 
         // 进行请求调用
         return null;

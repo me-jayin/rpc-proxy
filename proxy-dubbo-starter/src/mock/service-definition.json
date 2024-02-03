@@ -1,0 +1,151 @@
+{
+  "annotations":[
+
+  ],
+  "canonicalName":"xyz.me4cxy.proxy.service.UserService",
+  "codeSource":"file:/E:/project/backend/rpc-proxy/dubbo-provider/target/classes/",
+  "methods":[
+    {
+      "annotations":[
+        "@xyz.me4cxy.proxy.annotation.HttpMethod(method=[GET, POST, PUT, DELETE], alias=[])",
+        "@xyz.me4cxy.proxy.annotation.HttpParams(value=[@xyz.me4cxy.proxy.annotation.HttpParam(paramType=PARAMETER, defaultVal=, index=0, name=id)])",
+        "@xyz.me4cxy.proxy.annotation.HttpParam(paramType=PARAMETER, defaultVal=, index=1, name=user)"
+      ],
+      "name":"updateById",
+      "parameterTypes":[
+        "java.lang.Long",
+        "xyz.me4cxy.proxy.entity.User"
+      ],
+      "parameters":[
+
+      ],
+      "returnType":"void"
+    },
+    {
+      "annotations":[
+        "@xyz.me4cxy.proxy.annotation.HttpMethod(method=[GET, POST, PUT, DELETE], alias=[])",
+        "@xyz.me4cxy.proxy.annotation.HttpParam(paramType=PARAMETER, defaultVal=, index=0, name=username)"
+      ],
+      "name":"findByUsername",
+      "parameterTypes":[
+        "java.lang.String"
+      ],
+      "parameters":[
+
+      ],
+      "returnType":"xyz.me4cxy.proxy.entity.User"
+    },
+    {
+      "annotations":[
+
+      ],
+      "name":"addUsers",
+      "parameterTypes":[
+        "java.util.List<xyz.me4cxy.proxy.entity.User>"
+      ],
+      "parameters":[
+
+      ],
+      "returnType":"void"
+    }
+  ],
+  "parameters":{
+    "side":"provider",
+    "application":"dubbo-provider",
+    "release":"3.3.0-beta.1",
+    "anyhost":"true",
+    "interface":"xyz.me4cxy.proxy.service.UserService",
+    "pid":"8928",
+    "dubbo":"2.0.2",
+    "group":"test",
+    "executor-management-mode":"isolation",
+    "file-cache":"true",
+    "methods":"addUsers,findByUsername,updateById",
+    "deprecated":"false",
+    "service-name-mapping":"true",
+    "generic":"false",
+    "bind.port":"20880",
+    "bind.ip":"192.168.1.100",
+    "prefer.serialization":"fastjson2,hessian2",
+    "background":"false",
+    "dynamic":"true",
+    "timestamp":"1706616039391"
+  },
+  "types":[
+    {
+      "enums":[
+
+      ],
+      "items":[
+        "xyz.me4cxy.proxy.entity.User"
+      ],
+      "properties":{
+
+      },
+      "type":"java.util.List<xyz.me4cxy.proxy.entity.User>"
+    },
+    {
+      "enums":[
+
+      ],
+      "items":[
+
+      ],
+      "properties":{
+
+      },
+      "type":"void"
+    },
+    {
+      "enums":[
+
+      ],
+      "items":[
+
+      ],
+      "properties":{
+        "id":"java.lang.Long",
+        "age":"java.lang.Integer",
+        "username":"java.lang.String"
+      },
+      "type":"xyz.me4cxy.proxy.entity.User"
+    },
+    {
+      "enums":[
+
+      ],
+      "items":[
+
+      ],
+      "properties":{
+
+      },
+      "type":"java.lang.Long"
+    },
+    {
+      "enums":[
+
+      ],
+      "items":[
+
+      ],
+      "properties":{
+
+      },
+      "type":"java.lang.String"
+    },
+    {
+      "enums":[
+
+      ],
+      "items":[
+
+      ],
+      "properties":{
+
+      },
+      "type":"java.lang.Integer"
+    }
+  ],
+  "uniqueId":"xyz.me4cxy.proxy.service.UserService@file:/E:/project/backend/rpc-proxy/dubbo-provider/target/classes/"
+}

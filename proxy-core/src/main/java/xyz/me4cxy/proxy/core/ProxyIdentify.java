@@ -9,6 +9,12 @@ package xyz.me4cxy.proxy.core;
 public interface ProxyIdentify {
 
     /**
+     * 获取应用
+     * @return
+     */
+    String getApplication();
+
+    /**
      * 标识key
      * @return
      */

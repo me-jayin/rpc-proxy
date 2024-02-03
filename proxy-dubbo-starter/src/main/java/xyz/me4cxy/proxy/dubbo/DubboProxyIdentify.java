@@ -32,12 +32,12 @@ public class DubboProxyIdentify implements ProxyIdentify {
     private String method;
 
     /**
-     * 服务标识符，{service}:{version}:{group}
+     * 服务标识符，{application}:{service}:{version}:{group}
      * @return
      */
     @Override
     public String identityKey() {
-        return JOINER.join(Arrays.asList(service, version, group));
+        return JOINER.join(Arrays.asList(application, service, version, group));
     }
 
     @Override
