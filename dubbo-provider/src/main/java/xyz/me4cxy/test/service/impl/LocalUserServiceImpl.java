@@ -1,8 +1,8 @@
-package xyz.me4cxy.proxy.service.impl;
+package xyz.me4cxy.test.service.impl;
 
 import org.apache.dubbo.config.annotation.DubboService;
-import xyz.me4cxy.proxy.entity.User;
-import xyz.me4cxy.proxy.service.UserService;
+import xyz.me4cxy.test.entity.User;
+import xyz.me4cxy.test.service.UserService;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,6 +34,11 @@ public class LocalUserServiceImpl implements UserService {
     @Override
     public void addUsers(List<User> user) {
         user.forEach(u -> USERS.put(u.getUsername(), u));
+    }
+
+    @Override
+    public void deleteAll(List<String> usernames) {
+        usernames.forEach(USERS::remove);
     }
 
     @Override

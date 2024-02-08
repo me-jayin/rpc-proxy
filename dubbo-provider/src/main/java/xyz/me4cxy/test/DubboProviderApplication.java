@@ -1,4 +1,4 @@
-package xyz.me4cxy.proxy;
+package xyz.me4cxy.test;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;

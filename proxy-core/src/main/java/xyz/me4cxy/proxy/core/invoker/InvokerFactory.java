@@ -17,4 +17,11 @@ public interface InvokerFactory<T extends ProxyIdentify> {
      */
     Invoker<T> createInvoker(T identify);
 
+    /**
+     * 判断是否支持当前identify来创建调用器
+     * @param identify
+     * @return
+     */
+    boolean isSupport(ProxyIdentify identify);
+
 }

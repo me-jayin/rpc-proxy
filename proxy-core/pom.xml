@@ -19,6 +19,15 @@
 
     <dependencies>
         <dependency>
+            <groupId>xyz.me4cxy.rpc-proxy</groupId>
+            <artifactId>proxy-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>xyz.me4cxy.rpc-proxy</groupId>
+            <artifactId>proxy-utils</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>

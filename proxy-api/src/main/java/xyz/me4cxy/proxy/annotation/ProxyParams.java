@@ -24,8 +24,8 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface HttpParams {
+public @interface ProxyParams {
 
-    HttpParam[] value();
+    ProxyParam[] value();
 
 }

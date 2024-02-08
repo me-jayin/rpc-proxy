@@ -9,7 +9,7 @@ import xyz.me4cxy.proxy.exception.NotFoundServiceException;
  * @author jayin
  * @since 2024/01/28
  */
-public interface ProxyServiceMetadataMatcher {
+public interface ProxyServiceMetadataService {
 
     /**
      * 加载元数据

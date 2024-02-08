@@ -1,6 +1,7 @@
 package xyz.me4cxy.proxy.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -25,6 +26,8 @@ public class PathPatternUtils {
     public final static String SINGLE_SEGMENT = "[a-zA-Z0-9\\-_]+";
     /** 匹配路径多块片段 */
     public final static String MULTIPLE_SEGMENT = "[a-zA-Z0-9/\\-_]+";
+    /** 不支持的类路径模板 */
+    public final static String CLASS_PATH_NOT_SUPPORT_PATTERN = "[^0-9a-zA-Z._]";
     /** Pattern 缓存 */
     private final static Map<String, Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
     /** 路径匹配结果缓存 */
@@ -66,6 +69,17 @@ public class PathPatternUtils {
             }
             return Collections.unmodifiableMap(IDENTIFY_PARAM_NAMES.stream().collect(Collectors.toMap(Function.identity(), matcher::group)));
         });
+    }
+
+    /**
+     * 将类路径不支持的字符，替换成指定字符
+     * 类路径支持的字符：0-9a-zA-Z._
+     * @param str
+     * @param replace
+     * @return
+     */
+    public static String replaceClassPathNotSupportChar(String str, String replace) {
+        return RegExUtils.replaceAll(str, CLASS_PATH_NOT_SUPPORT_PATTERN, replace);
     }
 
     public static void main(String[] args) {

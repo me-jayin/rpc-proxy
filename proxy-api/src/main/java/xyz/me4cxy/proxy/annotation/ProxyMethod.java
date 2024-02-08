@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface HttpMethod {
+public @interface ProxyMethod {
 
     /**
      * 方法别名，如果一个service有重载方法，并且method对应相同时，可以用别名做区分
@@ -25,6 +25,6 @@ public @interface HttpMethod {
      * 请求方法类型，默认支持所有
      * @return
      */
-    HttpMethodType[] method() default { HttpMethodType.GET, HttpMethodType.POST, HttpMethodType.PUT, HttpMethodType.DELETE };
+    ProxyMethodType[] method() default { ProxyMethodType.GET, ProxyMethodType.POST, ProxyMethodType.PUT, ProxyMethodType.DELETE };
 
 }

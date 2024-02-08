@@ -16,10 +16,10 @@ import java.lang.annotation.*;
  * @author jayin
  * @since 2023/12/31
  */
-@Repeatable(HttpParams.class)
+@Repeatable(ProxyParams.class)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface HttpParam {
+public @interface ProxyParam {
 
     /**
      * 参数索引，表示指定的是第几个参数
@@ -34,15 +34,9 @@ public @interface HttpParam {
     String name();
 
     /**
-     * 默认值
-     * @return
-     */
-    String defaultVal() default "";
-
-    /**
      * 参数类型，表示从哪里获取值
      * @return
      */
-    HttpParamType paramType() default HttpParamType.PARAMETER;
+    ProxyParamType paramType() default ProxyParamType.PARAMETER;
 
 }

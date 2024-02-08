@@ -2,6 +2,7 @@ package xyz.me4cxy.proxy.dubbo.resolver;
 
 import com.sun.istack.internal.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.concurrent.TimeUnit;
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2024/01/14
  */
 @Data
+@NoArgsConstructor
 @ConfigurationProperties(prefix = "xyz.me4cxy.rpc-proxy.dubbo")
 public class DubboProxyConfig {
 

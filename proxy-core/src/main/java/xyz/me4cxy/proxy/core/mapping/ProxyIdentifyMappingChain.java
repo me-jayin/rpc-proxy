@@ -22,7 +22,7 @@ public class ProxyIdentifyMappingChain {
     /**
      * 是否使用默认映射
      */
-    private boolean useDefaultMapping = true;
+    private boolean useDefaultMapping = false;
     /**
      * 默认映射
      */

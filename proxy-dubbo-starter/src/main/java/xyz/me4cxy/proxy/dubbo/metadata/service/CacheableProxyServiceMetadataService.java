@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author jayin
  * @since 2024/01/30
  */
-public abstract class CacheableProxyServiceMetadataMatcher implements ProxyServiceMetadataMatcher {
+public abstract class CacheableProxyServiceMetadataService implements ProxyServiceMetadataService {
     /**
      * 元数据缓存
      */
@@ -20,8 +20,15 @@ public abstract class CacheableProxyServiceMetadataMatcher implements ProxyServi
 
     @Override
     public ProxyServiceMetadata loadMetadata(ProxyIdentify identify) {
-        return metadataCache.computeIfAbsent(identify.identityKey(), key -> loadMetadata0(identify));
+        return metadataCache.computeIfAbsent(getCacheKey(identify), key -> loadMetadata0(identify));
     }
+
+    /**
+     * 获取缓存键
+     * @param identify
+     * @return
+     */
+    protected abstract String getCacheKey(ProxyIdentify identify);
 
     /**
      * 实际加载元数据

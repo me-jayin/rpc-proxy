@@ -4,8 +4,10 @@ import com.google.common.base.Joiner;
 import lombok.Builder;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
+import xyz.me4cxy.proxy.consts.StringConstants;
 import xyz.me4cxy.proxy.core.ProxyIdentify;
 import xyz.me4cxy.proxy.exception.IdentifyMappingException;
+import xyz.me4cxy.proxy.utils.PathPatternUtils;
 
 import java.util.Arrays;
 
@@ -18,7 +20,11 @@ import java.util.Arrays;
 @Getter
 @Builder
 public class DubboProxyIdentify implements ProxyIdentify {
-    private static final Joiner JOINER = Joiner.on(":");
+    private static final Joiner JOINER = Joiner.on(IDENTIFY_SEPARATOR);
+    /**
+     * 类分隔符
+     */
+    private static final Joiner CLASS_SEPARATOR = Joiner.on(StringConstants.CLASS_PATH_SEPARATOR);
 
     /** 应用名 */
     private String application;
@@ -32,12 +38,49 @@ public class DubboProxyIdentify implements ProxyIdentify {
     private String method;
 
     /**
-     * 服务标识符，{application}:{service}:{version}:{group}
+     * 服务标识符，{application}:{group}:{version}:{service}
+     * @return
+     */
+    public String serviceIdentifyKey() {
+        return JOINER.join(Arrays.asList(application, service, version, group));
+    }
+
+    /**
+     * 方法级别的标识符，，{application}:{group}:{version}:{service}:{method}
      * @return
      */
     @Override
-    public String identityKey() {
-        return JOINER.join(Arrays.asList(application, service, version, group));
+    public String identifyKey() {
+        return JOINER.join(Arrays.asList(application, service, version, group, method));
+    }
+
+    /**
+     * 应用标识，只与应用、分组和版本有关，{application}:{group}:{version}
+     * @return
+     */
+    public String applicationIdentifyKey() {
+        return JOINER.join(Arrays.asList(application, version, group));
+    }
+
+    /**
+     * 参数类型类前缀，采用 {application}.v{version}.{group}
+     * 并且会将application、group中特殊字符换成 _ ，并且在 version 中 . 换成 _
+     * @return
+     */
+    public String paramClassPrefix() {
+        return CLASS_SEPARATOR.join(
+                PathPatternUtils.replaceClassPathNotSupportChar(application, StringConstants.UNDERLINE),
+                getUnderlineVersion(),
+                PathPatternUtils.replaceClassPathNotSupportChar(group, StringConstants.UNDERLINE)
+        );
+    }
+
+    private String getUnderlineVersion() {
+        String v = version;
+        if (!StringUtils.startsWith(v, "v")) {
+            v += "v";
+        }
+        return StringUtils.replace(v, StringConstants.CLASS_PATH_SEPARATOR, StringConstants.UNDERLINE);
     }
 
     @Override

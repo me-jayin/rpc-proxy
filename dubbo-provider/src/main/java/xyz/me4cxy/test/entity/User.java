@@ -1,4 +1,7 @@
-package xyz.me4cxy.proxy.entity;
+package xyz.me4cxy.test.entity;
+
+
+import org.springframework.cglib.beans.BeanMap;
 
 /**
  * 用户实体
@@ -6,15 +9,32 @@ package xyz.me4cxy.proxy.entity;
  * @since 2024/01/01
  */
 public class User {
-
+    private int year;
     private Long id;
     private String username;
     private Integer age;
+    private Position position;
 
     public User(Long id, String username, Integer age) {
         this.id = id;
         this.username = username;
         this.age = age;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public Long getId() {

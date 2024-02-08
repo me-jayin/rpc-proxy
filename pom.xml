@@ -32,6 +32,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.24</lombok.version>
         <guava.version>27.0.1-jre</guava.version>
+
+        <asm.version>8.0.1</asm.version>
     </properties>
 
     <dependencyManagement>
@@ -55,6 +57,11 @@
             <dependency>
                 <groupId>xyz.me4cxy.rpc-proxy</groupId>
                 <artifactId>proxy-dubbo-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xyz.me4cxy.proxy</groupId>
+                <artifactId>proxy-web-support</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -99,6 +106,13 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <!-- asm -->
+            <dependency>
+                <artifactId>asm</artifactId>
+                <groupId>org.ow2.asm</groupId>
+                <version>${asm.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class PathAndHeaderRuleIdentifyResolver implements PathRuleProxyIdentifyResolver {
+
     /**
      * 路径分隔符
      */
@@ -36,6 +37,10 @@ public class PathAndHeaderRuleIdentifyResolver implements PathRuleProxyIdentifyR
      * 应用名称连字符
      */
     public static final String APPLICATION_HYPHEN = "-";
+    /**
+     * 下划线
+     */
+    public static final String APPLICATION_UNDERLINE = "_";
     /**
      * dubbo代理配置
      */
@@ -70,7 +75,7 @@ public class PathAndHeaderRuleIdentifyResolver implements PathRuleProxyIdentifyR
         return DubboProxyIdentify.builder()
                 .application(application)
                 .service(getDubboServiceName(application, packageName, className))
-                .method(method)
+                .method(xyz.me4cxy.proxy.utils.StringUtils.toCamel(method))
                 .group(group)
                 .version(version)
                 .build();
@@ -87,7 +92,7 @@ public class PathAndHeaderRuleIdentifyResolver implements PathRuleProxyIdentifyR
     }
 
     public String getPackageName(String application, String packageName) {
-        String packageAppSegment = StringUtils.lowerCase(StringUtils.replace(application, APPLICATION_HYPHEN, PACKAGE_SEPARATOR));
+        String packageAppSegment = StringUtils.lowerCase(StringUtils.replace(application, APPLICATION_HYPHEN, APPLICATION_UNDERLINE));
         String actPackageName = StringUtils.join(Arrays.asList(
                 dubboProxyConfig.getPackagePrefix(), // 配置的包前缀
                 packageAppSegment, // 转包名后的

@@ -6,7 +6,7 @@ package xyz.me4cxy.proxy.annotation;
  * @author jayin
  * @since 2024/01/01
  */
-public enum HttpMethodType {
+public enum ProxyMethodType {
 
     GET,
     POST,

@@ -7,6 +7,7 @@ package xyz.me4cxy.proxy.core;
  * @since 2024/01/07
  */
 public interface ProxyIdentify {
+    String IDENTIFY_SEPARATOR = ":";
 
     /**
      * 获取应用
@@ -18,6 +19,6 @@ public interface ProxyIdentify {
      * 标识key
      * @return
      */
-    String identityKey();
+    String identifyKey();
 
 }

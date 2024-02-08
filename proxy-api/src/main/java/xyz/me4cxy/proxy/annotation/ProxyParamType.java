@@ -6,7 +6,7 @@ package xyz.me4cxy.proxy.annotation;
  * @author jayin
  * @since 2024/01/01
  */
-public enum HttpParamType {
+public enum ProxyParamType {
 
     /**
      * 默认参数，表示从请求对应的地方获取参数：
@@ -18,7 +18,7 @@ public enum HttpParamType {
     PARAMETER,
     /**
      * 请求体参数，表示从请求体中获取。
-     * 如果是该类型时，{@link HttpParam#name()}的值不影响取值结果
+     * 如果是该类型时，{@link ProxyParam#name()}的值不影响取值结果
      */
     BODY,
     /**
