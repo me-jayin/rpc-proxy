@@ -2,7 +2,6 @@ package xyz.me4cxy.proxy.dubbo.metadata;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
-import xyz.me4cxy.proxy.dubbo.DubboProxyIdentify;
 import xyz.me4cxy.proxy.dubbo.metadata.definition.TypeDefinitionWrapper;
 import xyz.me4cxy.proxy.dubbo.metadata.type.ProxyTypeMetadata;
 
@@ -92,13 +91,13 @@ public class GlobalTypeRegister {
                                                          TypeDefinitionWrapper type,
                                                          Map<String, ProxyTypeMetadata> applicationTypes,
                                                          Map<String, TypeDefinitionWrapper> typeSources) {
-        ProxyTypeMetadata metadata = ProxyTypeMetadata.ofComplexType(type);
+        ProxyTypeMetadata metadata = ProxyTypeMetadata.ofComplexType(applicationIdentify, type);
         applicationTypes.put(type.getRawType(), metadata);
         // 后置初始化
         metadata.afterRegister(fieldType -> {
             TypeDefinitionWrapper fieldTypeDefinition = typeSources.get(fieldType);
             if (fieldTypeDefinition == null) { // 如果是遇到类型丢失，则先尝试直接注册到映射中
-                fieldTypeDefinition = TypeDefinitionWrapper.ofType(fieldType);
+                fieldTypeDefinition = TypeDefinitionWrapper.innerOfType(fieldType);
             }
             return registerType(applicationIdentify, fieldTypeDefinition, applicationTypes, typeSources);
         });

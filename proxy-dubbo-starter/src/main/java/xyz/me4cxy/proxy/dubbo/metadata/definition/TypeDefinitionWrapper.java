@@ -14,10 +14,16 @@ import java.util.Map;
  * @date 2024/02/06
  */
 public class TypeDefinitionWrapper {
-    private TypeDefinition definition;
+    private final TypeDefinition definition;
+    private final boolean isInnerType;
 
     public TypeDefinitionWrapper(TypeDefinition definition) {
+        this(definition, false);
+    }
+
+    public TypeDefinitionWrapper(TypeDefinition definition, boolean isInnerType) {
         this.definition = definition;
+        this.isInnerType = isInnerType;
     }
 
     public List<String> getEnums() {
@@ -48,14 +54,18 @@ public class TypeDefinitionWrapper {
         return definition.getType();
     }
 
+    public boolean isInnerType() {
+        return isInnerType;
+    }
+
     /**
      * 基于指定类型创建类型定义
      * @param type
      * @return
      */
-    public static TypeDefinitionWrapper ofType(String type) {
+    public static TypeDefinitionWrapper innerOfType(String type) {
         TypeDefinition definition = new TypeDefinition();
         definition.setType(type);
-        return new TypeDefinitionWrapper(definition);
+        return new TypeDefinitionWrapper(definition, true);
     }
 }

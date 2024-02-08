@@ -3,8 +3,10 @@ package xyz.me4cxy.proxy.dubbo.metadata.type;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import xyz.me4cxy.proxy.dubbo.exception.TypeDefinitionNotFoundException;
 import xyz.me4cxy.proxy.dubbo.metadata.ClassType;
 import xyz.me4cxy.proxy.dubbo.metadata.definition.TypeDefinitionWrapper;
+import xyz.me4cxy.proxy.exception.ProxyException;
 
 import java.util.function.Function;
 
@@ -57,14 +59,19 @@ public abstract class ProxyTypeMetadata {
 
     /**
      * 构建复杂类型
+     *
+     * @param applicationIdentify
      * @param definition
      * @return
      */
-    public static ProxyTypeMetadata ofComplexType(TypeDefinitionWrapper definition) {
+    public static ProxyTypeMetadata ofComplexType(String applicationIdentify, TypeDefinitionWrapper definition) {
         try {
             Class<?> clazz = Class.forName(definition.getType());
             return new ProxyInnerComplexTypeMetadata(definition, clazz);
         } catch (Exception e) {
+            if (!definition.isInnerType()) {
+                throw new TypeDefinitionNotFoundException(applicationIdentify, definition.getType());
+            }
             log.debug("类型 {} 非内置对象", definition.getType());
         }
 
