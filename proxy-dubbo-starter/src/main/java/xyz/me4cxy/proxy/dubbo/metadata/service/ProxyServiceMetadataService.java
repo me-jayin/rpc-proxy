@@ -2,7 +2,7 @@ package xyz.me4cxy.proxy.dubbo.metadata.service;
 
 import xyz.me4cxy.proxy.core.ProxyIdentify;
 import xyz.me4cxy.proxy.dubbo.metadata.ProxyServiceMetadata;
-import xyz.me4cxy.proxy.exception.NotFoundServiceException;
+import xyz.me4cxy.proxy.exception.ServiceNotFoundException;
 
 /**
  * 代理元数据业务类
@@ -14,8 +14,8 @@ public interface ProxyServiceMetadataService {
     /**
      * 加载元数据
      * @param identify
-     * @return NotNull，如果为空请抛出{@link NotFoundServiceException}异常
+     * @return NotNull，如果为空请抛出{@link ServiceNotFoundException}异常
      */
-    ProxyServiceMetadata loadMetadata(ProxyIdentify identify) throws NotFoundServiceException;
+    ProxyServiceMetadata loadMetadata(ProxyIdentify identify) throws ServiceNotFoundException;
 
 }

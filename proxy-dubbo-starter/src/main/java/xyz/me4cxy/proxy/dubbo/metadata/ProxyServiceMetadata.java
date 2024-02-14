@@ -4,8 +4,11 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.metadata.definition.model.MethodDefinition;
 import org.apache.dubbo.metadata.definition.model.ServiceDefinition;
+import xyz.me4cxy.proxy.annotation.ProxyParamType;
 import xyz.me4cxy.proxy.dubbo.DubboProxyIdentify;
 import xyz.me4cxy.proxy.dubbo.metadata.method.ProxyMethodMetadata;
+import xyz.me4cxy.proxy.dubbo.metadata.method.ProxyMethodParameterMetadata;
+import xyz.me4cxy.proxy.exception.ProxyParamException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -44,10 +47,19 @@ public class ProxyServiceMetadata implements Serializable {
         List<MethodDefinition> methods = serviceDefinition.getMethods();
         Map<String, List<ProxyMethodMetadata>> methodsMetadata = new HashMap<>();
         for (MethodDefinition method : methods) {
-            ProxyMethodMetadata metadata = ProxyMethodMetadata.of(applicationIdentify, method);
+            ProxyMethodMetadata metadata = ProxyMethodMetadata.of(applicationIdentify, this, method);
             // 遍历别名注册方法信息
             for (String alias : metadata.getAlias()) {
                 methodsMetadata.computeIfAbsent(alias, k -> new ArrayList<>()).add(metadata);
+            }
+            boolean haveBodyParam = false;
+            for (ProxyMethodParameterMetadata param : metadata.getParams()) {
+                if (ProxyParamType.BODY.equals(param.getParamType())) {
+                    if (haveBodyParam) {
+                        throw new ProxyParamException(applicationIdentify, "存在多个body参数");
+                    }
+                    haveBodyParam = true;
+                }
             }
         }
         this.aliasToMethodsMetadata = methodsMetadata;

@@ -37,6 +37,11 @@ public class LocalUserServiceImpl implements UserService {
     }
 
     @Override
+    public void addUser(User user) {
+        System.out.println(user.getUsername());
+    }
+
+    @Override
     public void deleteAll(List<String> usernames) {
         usernames.forEach(USERS::remove);
     }
@@ -47,5 +52,10 @@ public class LocalUserServiceImpl implements UserService {
             u.setAge(user.getAge());
             u.setUsername(user.getUsername());
         });
+    }
+
+    @Override
+    public void addUser(Map<String, List<Integer>> user) {
+
     }
 }

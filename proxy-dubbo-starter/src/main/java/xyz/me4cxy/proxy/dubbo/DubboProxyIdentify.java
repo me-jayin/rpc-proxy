@@ -55,30 +55,26 @@ public class DubboProxyIdentify implements ProxyIdentify {
     }
 
     /**
-     * 应用标识，只与应用、分组和版本有关，{application}:{group}:{version}
-     * @return
-     */
-    public String applicationIdentifyKey() {
-        return JOINER.join(Arrays.asList(application, version, group));
-    }
-
-    /**
-     * 参数类型类前缀，采用 {application}.v{version}.{group}
+     * 应用前缀，只与应用、分组和版本有关，采用 {application}.{group}.v{version}
      * 并且会将application、group中特殊字符换成 _ ，并且在 version 中 . 换成 _
      * @return
      */
-    public String paramClassPrefix() {
+    public String applicationIdentify() {
         return CLASS_SEPARATOR.join(
                 PathPatternUtils.replaceClassPathNotSupportChar(application, StringConstants.UNDERLINE),
-                getUnderlineVersion(),
-                PathPatternUtils.replaceClassPathNotSupportChar(group, StringConstants.UNDERLINE)
+                PathPatternUtils.replaceClassPathNotSupportChar(group, StringConstants.UNDERLINE),
+                getUnderlineVersion()
         );
     }
 
+    /**
+     * 去除特殊字符，将特殊字符换成 _ 后的版本号
+     * @return
+     */
     private String getUnderlineVersion() {
         String v = version;
         if (!StringUtils.startsWith(v, "v")) {
-            v += "v";
+            v = "v" + v;
         }
         return StringUtils.replace(v, StringConstants.CLASS_PATH_SEPARATOR, StringConstants.UNDERLINE);
     }

@@ -1,6 +1,7 @@
 package xyz.me4cxy.proxy.dubbo.exception;
 
 import xyz.me4cxy.proxy.exception.ProxyException;
+import xyz.me4cxy.proxy.exception.ProxyResourceException;
 
 /**
  * 类型定义不存在
@@ -9,7 +10,7 @@ import xyz.me4cxy.proxy.exception.ProxyException;
  * @email 1035933250@qq.com
  * @date 2024/02/06
  */
-public class TypeDefinitionNotFoundException extends ProxyException {
+public class TypeDefinitionNotFoundException extends ProxyResourceException {
 
     /**
      * @param applicationIdentifyKey 应用标识

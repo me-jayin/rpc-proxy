@@ -9,12 +9,12 @@ package xyz.me4cxy.proxy.exception;
 public class ProxyException extends RuntimeException {
     private final String innerMsg;
 
-    public ProxyException(String msg) {
-        this(msg, msg);
+    public ProxyException(String msg, Throwable t) {
+        this(msg, msg, t);
     }
 
-    public ProxyException(String msg, String innerMsg) {
-        super(msg);
+    public ProxyException(String msg, String innerMsg, Throwable t) {
+        super(msg, t);
         this.innerMsg = innerMsg;
     }
 

@@ -13,10 +13,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import xyz.me4cxy.proxy.core.ProxyIdentify;
 import xyz.me4cxy.proxy.dubbo.DubboProxyIdentify;
+import xyz.me4cxy.proxy.dubbo.core.Cleaner;
+import xyz.me4cxy.proxy.dubbo.core.CleanerRegistry;
 import xyz.me4cxy.proxy.dubbo.metadata.GlobalTypeRegister;
 import xyz.me4cxy.proxy.dubbo.metadata.ProxyServiceMetadata;
 import xyz.me4cxy.proxy.dubbo.metadata.definition.TypeDefinitionWrapper;
-import xyz.me4cxy.proxy.exception.NotFoundServiceException;
+import xyz.me4cxy.proxy.exception.ServiceNotFoundException;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -60,7 +62,7 @@ public class DefaultDubboProxyServiceMetadataService extends CacheableProxyServi
         String metadataStr = metadataReport.getServiceDefinition(identifier);
         if (StringUtils.isEmpty(metadataStr)) {
             log.info("获取服务 {} 的元数据失败，元数据：{}", proxyIdentify.serviceIdentifyKey(), metadataStr);
-            throw new NotFoundServiceException("服务元数据未找到");
+            throw new ServiceNotFoundException("服务元数据未找到");
         }
 
         log.debug("服务 {} 元数据加载成功：{}", proxyIdentify.serviceIdentifyKey(), metadataStr);
@@ -70,10 +72,25 @@ public class DefaultDubboProxyServiceMetadataService extends CacheableProxyServi
         Map<String, TypeDefinitionWrapper> typeToDefinition = serviceDefinition.getTypes().stream().collect(Collectors.toMap(TypeDefinition::getType, TypeDefinitionWrapper::new));
 
         // 按应用层级注册类型定义信息并创建服务元数据
-        String applicationIdentify = proxyIdentify.applicationIdentifyKey();
-        GlobalTypeRegister.registerAll(applicationIdentify, typeToDefinition);
-        ProxyServiceMetadata metadata = new ProxyServiceMetadata(applicationIdentify, serviceDefinition);
-        log.info("服务方法 {} 的元数据信息加载成功：{}", applicationIdentify, metadata);
+        String applicationPrefix = proxyIdentify.applicationIdentify();
+        GlobalTypeRegister.registerAll(applicationPrefix, typeToDefinition);
+        ProxyServiceMetadata metadata = new ProxyServiceMetadata(applicationPrefix, serviceDefinition);
+        log.info("服务方法 {} 的元数据信息加载成功：{}", applicationPrefix, metadata);
+
+        // 添加应用清除器
+        String cacheKey = getCacheKey(proxyIdentify);
+        CleanerRegistry.addCleaner(proxyIdentify.applicationIdentify(), new Cleaner() {
+            @Override
+            public void clear() {
+                metadataCache.remove(cacheKey);
+            }
+
+            @Override
+            public String name() {
+                return "Dubbo ServiceMetadata 清除器";
+            }
+        });
+
         return metadata;
     }
 }

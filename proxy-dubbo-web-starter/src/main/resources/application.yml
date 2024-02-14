@@ -1,0 +1,18 @@
+dubbo:
+  application:
+    name: proxy
+    qos-enable: false
+  registry:
+    address: zookeeper://localhost:2181
+
+xyz:
+  me4cxy:
+    rpc-proxy:
+      dubbo:
+        package-prefix: xyz.me4cxy
+server:
+  port: 9999
+
+logging:
+  level:
+    xyz.me4cxy: debug

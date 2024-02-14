@@ -26,6 +26,12 @@ public interface ProxyRequest {
     List<String> getParameters(String name);
 
     /**
+     * 获取所有参数
+     * @return
+     */
+    Map<String, List<String>> getParameters();
+
+    /**
      * 获取默认参数
      * @param name
      * @return
@@ -89,5 +95,11 @@ public interface ProxyRequest {
      * @return
      */
     String requestMethod();
+
+    /**
+     * 获取body内容
+     * @return
+     */
+    String getBody();
 
 }

@@ -1,6 +1,8 @@
 dubbo:
   application:
     name: test
+    # 关闭序列化校验，否则生成的class将不会通过校验
+    serialize-check-status: DISABLE
   protocol:
     name: dubbo
     port: -1

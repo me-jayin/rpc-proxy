@@ -30,7 +30,7 @@ public class RpcProxy {
     public Object proxy(ProxyRequestContext context) {
         ProxyIdentify identify = chain.getIdentify(context);
         if (identify == null) {
-            log.info("当前获取代理标识时未找到有效节点，context: {}", context);
+            log.info("当前获取代理标识时未找到有效节点，{}", context);
             throw new IdentifyMappingException("无效的服务", "请求" + context.toString() + "未找到对应的服务");
         }
         log.info("请求路径映射后取到代理信息：{}", identify);
@@ -44,10 +44,10 @@ public class RpcProxy {
         log.debug("代理标识 {} 创建调用器成功：{}", identify.identifyKey(), invoker);
 
         // TODO 执行前置拦截器等
-        // 获取调用结果
+        // 进行实际调用
         Object res = invoker.invoke(context);
 
-        // 进行请求调用
+        // 对响应结果进行封装
         return null;
     }
 

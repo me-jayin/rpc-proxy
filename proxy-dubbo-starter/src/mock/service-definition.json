@@ -1,63 +1,69 @@
 {
   "annotations": [],
-  "canonicalName": "xyz.me4cxy.proxy.service.UserService",
+  "canonicalName": "xyz.me4cxy.test.service.UserService",
   "codeSource": "file:/K:/Study_Work/jayin_work/rpc-proxy/dubbo-provider/target/classes/",
   "methods": [
     {
       "annotations": [
-        "@xyz.me4cxy.proxy.annotation.HttpMethod(method=[GET, POST, PUT, DELETE], alias=[])",
-        "@xyz.me4cxy.proxy.annotation.HttpParams(value=[@xyz.me4cxy.proxy.annotation.HttpParam(paramType=PARAMETER, defaultVal=, index=0, name=id)])",
-        "@xyz.me4cxy.proxy.annotation.HttpParam(paramType=PARAMETER, defaultVal=, index=1, name=user)"
+        "@xyz.me4cxy.proxy.annotation.ProxyMethod(method=[POST], alias=[])",
+        "@xyz.me4cxy.proxy.annotation.ProxyParam(paramType=BODY, index=0, name=user)"
       ],
-      "name": "updateById",
-      "parameterTypes": [
-        "java.lang.Long",
-        "xyz.me4cxy.proxy.entity.User"
-      ],
-      "parameters": [],
-      "returnType": "void"
-    },
-    {
-      "annotations": [],
       "name": "addUsers",
       "parameterTypes": [
-        "java.util.List<xyz.me4cxy.proxy.entity.User>"
-      ],
-      "parameters": [],
-      "returnType": "void"
-    },
-    {
-      "annotations": [],
-      "name": "deleteAll",
-      "parameterTypes": [
-        "java.util.List<java.lang.String>"
+        "java.util.List<xyz.me4cxy.test.entity.User>"
       ],
       "parameters": [],
       "returnType": "void"
     },
     {
       "annotations": [
-        "@xyz.me4cxy.proxy.annotation.HttpMethod(method=[GET, POST, PUT, DELETE], alias=[])",
-        "@xyz.me4cxy.proxy.annotation.HttpParam(paramType=PARAMETER, defaultVal=, index=0, name=username)"
+        "@xyz.me4cxy.proxy.annotation.ProxyMethod(method=[PUT], alias=[])",
+        "@xyz.me4cxy.proxy.annotation.ProxyParams(value=[@xyz.me4cxy.proxy.annotation.ProxyParam(paramType=PARAMETER, index=0, name=id)])",
+        "@xyz.me4cxy.proxy.annotation.ProxyParam(paramType=PARAMETER, index=1, name=user)"
+      ],
+      "name": "updateById",
+      "parameterTypes": [
+        "java.lang.Long",
+        "xyz.me4cxy.test.entity.User"
+      ],
+      "parameters": [],
+      "returnType": "void"
+    },
+    {
+      "annotations": [
+        "@xyz.me4cxy.proxy.annotation.ProxyMethod(method=[GET], alias=[])",
+        "@xyz.me4cxy.proxy.annotation.ProxyParam(paramType=PARAMETER, index=0, name=username)"
       ],
       "name": "findByUsername",
       "parameterTypes": [
         "java.lang.String"
       ],
       "parameters": [],
-      "returnType": "xyz.me4cxy.proxy.entity.User"
+      "returnType": "xyz.me4cxy.test.entity.User"
+    },
+    {
+      "annotations": [
+        "@xyz.me4cxy.proxy.annotation.ProxyMethod(method=[DELETE], alias=[])",
+        "@xyz.me4cxy.proxy.annotation.ProxyParam(paramType=BODY, index=0, name=user)"
+      ],
+      "name": "deleteAll",
+      "parameterTypes": [
+        "java.util.List<java.lang.String>"
+      ],
+      "parameters": [],
+      "returnType": "void"
     }
   ],
   "parameters": {
-    "version": "1.2",
-    "pid": "44380",
-    "application": "test-provider",
-    "anyhost": "true",
-    "group": "test",
-    "interface": "xyz.me4cxy.proxy.service.UserService",
-    "side": "provider",
-    "release": "3.3.0-beta.1",
     "dubbo": "2.0.2",
+    "anyhost": "true",
+    "release": "3.3.0-beta.1",
+    "version": "1.2",
+    "pid": "38712",
+    "group": "test",
+    "side": "provider",
+    "interface": "xyz.me4cxy.test.service.UserService",
+    "application": "test",
     "executor-management-mode": "isolation",
     "file-cache": "true",
     "methods": "addUsers,deleteAll,findByUsername,updateById",
@@ -70,16 +76,18 @@
     "prefer.serialization": "fastjson2,hessian2",
     "background": "false",
     "dynamic": "true",
-    "timestamp": "1707199276123"
+    "timestamp": "1707618798586"
   },
   "types": [
     {
-      "enums": [],
-      "items": [
-        "xyz.me4cxy.proxy.entity.User"
+      "enums": [
+        "DOCTOR",
+        "TEACHER",
+        "STUDENT"
       ],
+      "items": [],
       "properties": {},
-      "type": "java.util.List<xyz.me4cxy.proxy.entity.User>"
+      "type": "xyz.me4cxy.test.entity.Position"
     },
     {
       "enums": [],
@@ -91,30 +99,21 @@
       "enums": [],
       "items": [],
       "properties": {
+        "birthday": "xyz.me4cxy.test.entity.CustomDate",
         "year": "int",
-        "beanMap": "org.springframework.cglib.beans.BeanMap",
+        "obj": "java.lang.Object",
         "id": "java.lang.Long",
-        "position": "xyz.me4cxy.proxy.entity.Position",
+        "position": "xyz.me4cxy.test.entity.Position",
         "age": "java.lang.Integer",
         "username": "java.lang.String"
       },
-      "type": "xyz.me4cxy.proxy.entity.User"
+      "type": "xyz.me4cxy.test.entity.User"
     },
     {
       "enums": [],
       "items": [],
       "properties": {},
       "type": "java.lang.Long"
-    },
-    {
-      "enums": [
-        "DOCTOR",
-        "TEACHER",
-        "STUDENT"
-      ],
-      "items": [],
-      "properties": {},
-      "type": "xyz.me4cxy.proxy.entity.Position"
     },
     {
       "enums": [],
@@ -128,7 +127,19 @@
       "enums": [],
       "items": [],
       "properties": {},
+      "type": "java.lang.Object"
+    },
+    {
+      "enums": [],
+      "items": [],
+      "properties": {},
       "type": "java.lang.String"
+    },
+    {
+      "enums": [],
+      "items": [],
+      "properties": {},
+      "type": "xyz.me4cxy.test.entity.CustomDate"
     },
     {
       "enums": [],
@@ -141,7 +152,15 @@
       "items": [],
       "properties": {},
       "type": "int"
+    },
+    {
+      "enums": [],
+      "items": [
+        "xyz.me4cxy.test.entity.User"
+      ],
+      "properties": {},
+      "type": "java.util.List<xyz.me4cxy.test.entity.User>"
     }
   ],
-  "uniqueId": "xyz.me4cxy.proxy.service.UserService@file:/K:/Study_Work/jayin_work/rpc-proxy/dubbo-provider/target/classes/"
+  "uniqueId": "xyz.me4cxy.test.service.UserService@file:/K:/Study_Work/jayin_work/rpc-proxy/dubbo-provider/target/classes/"
 }

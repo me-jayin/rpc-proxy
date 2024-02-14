@@ -22,8 +22,11 @@ public enum ProxyParamType {
      */
     BODY,
     /**
-     * 请求头参数，表示从请求头中获取
+     * 附加参数，表示从附加参数中获取
      */
-    HEADER,
+    ADDITIONAL,
+
+
+
 
 }

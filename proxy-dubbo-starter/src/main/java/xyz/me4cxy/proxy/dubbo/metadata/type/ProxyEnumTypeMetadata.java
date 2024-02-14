@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 枚举类型元数据
+ * 枚举类型元数据，直接视作String类型
  *
  * @author Jayin
  * @email 1035933250@qq.com
@@ -21,9 +21,21 @@ public class ProxyEnumTypeMetadata extends ProxyTypeMetadata {
      */
     private final Set<String> enumValues;
 
-    public ProxyEnumTypeMetadata(TypeDefinitionWrapper definition) {
-        super(ClassType.ENUM, definition);
+    public ProxyEnumTypeMetadata(String applicationIdentify, TypeDefinitionWrapper definition) {
+        super(applicationIdentify, ClassType.ENUM, definition);
         this.enumValues = new HashSet<>(definition.getEnums());
     }
 
+    /**
+     * @return
+     */
+    @Override
+    public String getCanonicalName() {
+        return String.class.getCanonicalName();
+    }
+
+    @Override
+    public Class getTypeClass() {
+        return String.class;
+    }
 }

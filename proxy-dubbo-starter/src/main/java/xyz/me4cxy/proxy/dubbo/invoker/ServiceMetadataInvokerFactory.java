@@ -1,4 +1,4 @@
-package xyz.me4cxy.proxy.dubbo.metadata.invoker;
+package xyz.me4cxy.proxy.dubbo.invoker;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -9,10 +9,15 @@ import xyz.me4cxy.proxy.core.ProxyIdentify;
 import xyz.me4cxy.proxy.core.invoker.Invoker;
 import xyz.me4cxy.proxy.core.invoker.InvokerFactory;
 import xyz.me4cxy.proxy.dubbo.DubboProxyIdentify;
+import xyz.me4cxy.proxy.dubbo.core.Cleaner;
+import xyz.me4cxy.proxy.dubbo.core.CleanerRegistry;
 import xyz.me4cxy.proxy.dubbo.metadata.ProxyServiceMetadata;
 import xyz.me4cxy.proxy.dubbo.metadata.service.ProxyServiceMetadataService;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -30,7 +35,11 @@ public class ServiceMetadataInvokerFactory implements InvokerFactory<DubboProxyI
     /**
      * invoker缓存
      */
-    private final ConcurrentHashMap<String, ServiceMethodInvoker> INVOKER_CACHES = new ConcurrentHashMap<>();
+    private final Map<String, ServiceMethodInvoker> INVOKER_CACHES = new ConcurrentHashMap<>();
+    /**
+     * 记录某个应用下有哪些调用器
+     */
+    private final Map<String, Set<String>> APPLICATION_TO_IDENTIFY_KEYS = new ConcurrentHashMap<>();
 
     @Override
     public Invoker<DubboProxyIdentify> createInvoker(DubboProxyIdentify identify) {
@@ -48,7 +57,24 @@ public class ServiceMetadataInvokerFactory implements InvokerFactory<DubboProxyI
      * @return
      */
     protected ServiceMethodInvoker getOrCreateInvoker(DubboProxyIdentify identify) {
-        return INVOKER_CACHES.computeIfAbsent(identify.identifyKey(), key -> doCreate(identify));
+        return INVOKER_CACHES.computeIfAbsent(identify.identifyKey(), key -> {
+            APPLICATION_TO_IDENTIFY_KEYS.computeIfAbsent(identify.applicationIdentify(), k -> new HashSet<>()).add(key);
+            CleanerRegistry.addCleaner(identify.applicationIdentify(), new Cleaner() {
+                @Override
+                public void clear() {
+                    Set<String> keys = APPLICATION_TO_IDENTIFY_KEYS.remove(identify.applicationIdentify());
+                    if (keys != null) {
+                        keys.forEach(INVOKER_CACHES::remove);
+                    }
+                }
+
+                @Override
+                public String name() {
+                    return "ServiceMetadata Invoker 缓存清除器";
+                }
+            });
+            return doCreate(identify);
+        });
     }
 
     private ServiceMethodInvoker doCreate(DubboProxyIdentify identify) {

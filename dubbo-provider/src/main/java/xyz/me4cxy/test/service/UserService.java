@@ -8,6 +8,7 @@ import xyz.me4cxy.proxy.annotation.ProxyParams;
 import xyz.me4cxy.test.entity.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author jayin
@@ -20,8 +21,12 @@ public interface UserService {
     User findByUsername(String username);
 
     @ProxyMethod(method = ProxyMethodType.POST)
-    @ProxyParam(index = 0, name = "user", paramType = ProxyParamType.BODY)
+    @ProxyParam(index = 0, name = "user", paramType = ProxyParamType.PARAMETER)
     void addUsers(List<User> user);
+
+    @ProxyMethod(method = ProxyMethodType.GET)
+    @ProxyParam(index = 0, name = "user", paramType = ProxyParamType.PARAMETER)
+    void addUser(User user);
 
     @ProxyMethod(method = ProxyMethodType.DELETE)
     @ProxyParam(index = 0, name = "user", paramType = ProxyParamType.BODY)
@@ -31,5 +36,9 @@ public interface UserService {
     @ProxyParams(@ProxyParam(index = 0, name = "id"))
     @ProxyParam(index = 1, name = "user")
     void updateById(Long id, User user);
+
+    @ProxyMethod(method = ProxyMethodType.PUT)
+    @ProxyParams(@ProxyParam(index = 0, name = "user"))
+    void addUser(Map<String, List<Integer>> user);
 
 }

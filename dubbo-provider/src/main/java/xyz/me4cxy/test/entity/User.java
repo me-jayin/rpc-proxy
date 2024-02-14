@@ -1,24 +1,43 @@
 package xyz.me4cxy.test.entity;
 
-
-import org.springframework.cglib.beans.BeanMap;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 用户实体
  * @author jayin
  * @since 2024/01/01
  */
-public class User {
+public class User implements Serializable {
     private int year;
     private Long id;
     private String username;
     private Integer age;
     private Position position;
 
+    private List<Integer> roleIds;
+
+    private CustomDate birthday;
     public User(Long id, String username, Integer age) {
         this.id = id;
         this.username = username;
         this.age = age;
+    }
+
+    public List<Integer> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Integer> roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public CustomDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(CustomDate birthday) {
+        this.birthday = birthday;
     }
 
     public int getYear() {

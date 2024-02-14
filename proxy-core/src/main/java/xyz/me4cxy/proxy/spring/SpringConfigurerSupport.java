@@ -18,15 +18,17 @@ public abstract class SpringConfigurerSupport implements ApplicationContextAware
     private ApplicationContext context;
     private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
+    public <T> T autowiredAndInitializeBean(T bean) {
+        autowireCapableBeanFactory.autowireBean(bean);
+        return (T) autowireCapableBeanFactory.initializeBean(bean, bean.getClass().getName());
+    }
+
     public <T> List<T> autowiredAndInitializeBean(List<T> beans) {
         return autowiredAndInitializeBean(beans);
     }
 
     public <T> List<T> autowiredAndInitializeBean(List<T> beans, Comparator<T> comparator) {
-        Stream<T> tStream = beans.stream().map(bean -> {
-            autowireCapableBeanFactory.autowireBean(bean);
-            return (T) autowireCapableBeanFactory.initializeBean(bean, bean.getClass().getName());
-        });
+        Stream<T> tStream = beans.stream().map(this::autowiredAndInitializeBean);
         if (comparator != null) {
             tStream = tStream.sorted(comparator);
         }

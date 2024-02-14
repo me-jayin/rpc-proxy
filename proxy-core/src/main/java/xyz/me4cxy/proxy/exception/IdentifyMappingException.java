@@ -8,10 +8,14 @@ package xyz.me4cxy.proxy.exception;
  */
 public class IdentifyMappingException extends ProxyException {
     public IdentifyMappingException(String msg) {
-        super(msg);
+        this(msg, msg);
     }
 
     public IdentifyMappingException(String msg, String innerMsg) {
-        super(msg, innerMsg);
+        super(msg, innerMsg, null);
+    }
+
+    public IdentifyMappingException(String msg, String innerMsg, Throwable t) {
+        super(msg, innerMsg, t);
     }
 }

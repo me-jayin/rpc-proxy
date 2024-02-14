@@ -16,7 +16,7 @@ public abstract class CacheableProxyServiceMetadataService implements ProxyServi
     /**
      * 元数据缓存
      */
-    private final Map<String, ProxyServiceMetadata> metadataCache = new ConcurrentHashMap<>();
+    protected final Map<String, ProxyServiceMetadata> metadataCache = new ConcurrentHashMap<>();
 
     @Override
     public ProxyServiceMetadata loadMetadata(ProxyIdentify identify) {

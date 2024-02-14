@@ -3,7 +3,6 @@ package xyz.me4cxy.proxy.dubbo.metadata.method;
 import lombok.Builder;
 import lombok.Getter;
 import xyz.me4cxy.proxy.annotation.ProxyParamType;
-import xyz.me4cxy.proxy.dubbo.DubboProxyIdentify;
 import xyz.me4cxy.proxy.dubbo.annotation.ProxyParamValue;
 import xyz.me4cxy.proxy.dubbo.metadata.GlobalTypeRegister;
 import xyz.me4cxy.proxy.dubbo.metadata.type.ProxyTypeMetadata;
@@ -50,4 +49,5 @@ public class ProxyMethodParameterMetadata implements Serializable {
                 .type(GlobalTypeRegister.getType(applicationIdentify, parameterType))
                 .build();
     }
+
 }

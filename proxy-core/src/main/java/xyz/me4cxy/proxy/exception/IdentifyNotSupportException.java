@@ -11,6 +11,10 @@ import xyz.me4cxy.proxy.core.ProxyIdentify;
  */
 public class IdentifyNotSupportException extends ProxyException {
     public IdentifyNotSupportException(ProxyIdentify identify) {
-        super("请求方式不支持", "代理标识" + identify.getClass().getCanonicalName() + "无对应的调用器创建工厂");
+        super("请求方式不支持", "代理标识" + identify.getClass().getCanonicalName() + "无对应的调用器创建工厂", null);
+    }
+
+    public IdentifyNotSupportException(ProxyIdentify identify, Throwable t) {
+        super("请求方式不支持", "代理标识" + identify.getClass().getCanonicalName() + "无对应的调用器创建工厂", t);
     }
 }

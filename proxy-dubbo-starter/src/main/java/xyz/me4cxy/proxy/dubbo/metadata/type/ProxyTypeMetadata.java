@@ -6,7 +6,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import xyz.me4cxy.proxy.dubbo.exception.TypeDefinitionNotFoundException;
 import xyz.me4cxy.proxy.dubbo.metadata.ClassType;
 import xyz.me4cxy.proxy.dubbo.metadata.definition.TypeDefinitionWrapper;
-import xyz.me4cxy.proxy.exception.ProxyException;
 
 import java.util.function.Function;
 
@@ -21,20 +20,24 @@ import java.util.function.Function;
 @Getter
 public abstract class ProxyTypeMetadata {
     /**
+     *
+     */
+    protected final String applicationPrefix;
+    /**
      * 原类型定义
      */
-    private final TypeDefinitionWrapper definition;
+    protected final TypeDefinitionWrapper definition;
     /**
      * 类类型
      */
-    private final ClassType catalog;
-
+    protected final ClassType catalog;
     /**
      * 类型原名称
      */
-    private final String canonicalName;
+    protected final String canonicalName;
 
-    public ProxyTypeMetadata(ClassType catalog, TypeDefinitionWrapper definition) {
+    public ProxyTypeMetadata(String applicationPrefix, ClassType catalog, TypeDefinitionWrapper definition) {
+        this.applicationPrefix = applicationPrefix;
         this.catalog = catalog;
         this.definition = definition;
         this.canonicalName = definition.getType();
@@ -53,32 +56,49 @@ public abstract class ProxyTypeMetadata {
      * @param definition
      * @return
      */
-    public static ProxyTypeMetadata ofBasicType(TypeDefinitionWrapper definition) {
-        return new ProxyBasicTypeMetadata(definition);
+    public static ProxyTypeMetadata ofBasicType(String applicationIdentify, TypeDefinitionWrapper definition) {
+        return new ProxyBasicTypeMetadata(applicationIdentify, definition);
     }
 
     /**
      * 构建复杂类型
      *
-     * @param applicationIdentify
+     * @param applicationPrefix
      * @param definition
      * @return
      */
-    public static ProxyTypeMetadata ofComplexType(String applicationIdentify, TypeDefinitionWrapper definition) {
+    public static ProxyTypeMetadata ofComplexType(String applicationPrefix, TypeDefinitionWrapper definition) {
         try {
             Class<?> clazz = Class.forName(definition.getType());
-            return new ProxyInnerComplexTypeMetadata(definition, clazz);
+            return new ProxyInnerComplexTypeMetadata(applicationPrefix, definition, clazz);
         } catch (Exception e) {
-            if (!definition.isInnerType()) {
-                throw new TypeDefinitionNotFoundException(applicationIdentify, definition.getType());
+            if (definition.isInnerType()) {
+                throw new TypeDefinitionNotFoundException(applicationPrefix, definition.getType());
             }
             log.debug("类型 {} 非内置对象", definition.getType());
         }
 
         if (CollectionUtils.isNotEmpty(definition.getEnums())) { // 如果是枚举值
-            return new ProxyEnumTypeMetadata(definition);
+            return new ProxyEnumTypeMetadata(applicationPrefix, definition);
         }
-        return new ProxyComplexTypeMetadata(definition);
+        return new ProxyComplexTypeMetadata(applicationPrefix, definition);
     }
+
+    public String getApplicationPrefix() {
+        return applicationPrefix;
+    }
+
+    /**
+     * 获取asm中类描述
+     * @return
+     */
+    public abstract String getCanonicalName();
+
+    /**
+     * 获取当前类
+     * @return
+     */
+    public abstract Class getTypeClass();
+
 
 }

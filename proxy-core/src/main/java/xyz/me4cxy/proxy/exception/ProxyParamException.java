@@ -1,7 +1,5 @@
 package xyz.me4cxy.proxy.exception;
 
-import xyz.me4cxy.proxy.exception.ProxyException;
-
 /**
  * 代理参数异常
  *
@@ -12,7 +10,11 @@ import xyz.me4cxy.proxy.exception.ProxyException;
 public class ProxyParamException extends ProxyException {
 
     public ProxyParamException(String service, String reason) {
-        super("服务初始化失败", "服务”" + service + "“代理参数有误：" + reason);
+        this("服务初始化失败", "服务”" + service + "“代理参数有误：" + reason, null);
+    }
+
+    public ProxyParamException(String service, String reason, Throwable t) {
+        super("服务初始化失败", "服务”" + service + "“代理参数有误：" + reason, t);
     }
 
 }

@@ -26,17 +26,17 @@ public class ProxyRequestContext {
      * 请求响应
      */
     private ProxyResponse response;
-    /**
-     * 请求参数
-     */
-    private LinkedHashMap<String, String> param;
-    /**
-     * 请求体
-     */
-    private Map<String, Object> body;
+//    /**
+//     * 请求参数
+//     */
+//    private LinkedHashMap<String, String> param;
+//    /**
+//     * 请求体
+//     */
+//    private String body;
 
     @Override
     public String toString() {
-        return "context: { request: " + request.getPath() + " }";
+        return "context:{request: " + request.getPath() + "}";
     }
 }

@@ -17,7 +17,6 @@
         <module>proxy-utils</module>
         <module>proxy-dubbo-starter</module>
         <module>proxy-web-support</module>
-        <module>proxy-dubbo-zookeeper</module>
     </modules>
 
     <properties>
