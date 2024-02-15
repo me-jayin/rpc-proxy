@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import xyz.me4cxy.proxy.core.ProxyRequestContext;
 import xyz.me4cxy.proxy.core.ProxyIdentify;
 import xyz.me4cxy.proxy.core.mapping.ProxyIdentifyMapping;
-import xyz.me4cxy.proxy.dubbo.resolver.PathRuleProxyIdentifyResolver;
+import xyz.me4cxy.proxy.dubbo.mapping.resolver.PathRuleProxyIdentifyResolver;
 
 /**
  * 基于路径规则进行代理映射

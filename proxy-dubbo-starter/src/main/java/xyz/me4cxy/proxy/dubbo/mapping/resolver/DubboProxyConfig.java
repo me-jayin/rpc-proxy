@@ -1,4 +1,4 @@
-package xyz.me4cxy.proxy.dubbo.resolver;
+package xyz.me4cxy.proxy.dubbo.mapping.resolver;
 
 import com.sun.istack.internal.NotNull;
 import lombok.Data;

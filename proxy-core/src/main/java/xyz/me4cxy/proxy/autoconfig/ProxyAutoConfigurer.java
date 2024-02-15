@@ -8,6 +8,7 @@ import xyz.me4cxy.proxy.core.RpcProxy;
 import xyz.me4cxy.proxy.core.invoker.InvokerFactory;
 import xyz.me4cxy.proxy.core.mapping.ProxyIdentifyMapping;
 import xyz.me4cxy.proxy.core.mapping.ProxyIdentifyMappingChain;
+import xyz.me4cxy.proxy.core.response.chain.ResponseProcessorChain;
 
 import java.util.List;
 
@@ -22,14 +23,16 @@ public class ProxyAutoConfigurer {
 
     /**
      * rpc代理器
-     * @param chain
+     * @param identifyMappingChain
      * @param factories
      * @return
      */
     @Bean
     @ConditionalOnMissingBean
-    public RpcProxy rpcProxy(ProxyIdentifyMappingChain chain, List<InvokerFactory> factories) {
-        return new RpcProxy(chain, factories);
+    public RpcProxy rpcProxy(ProxyIdentifyMappingChain identifyMappingChain,
+                             List<InvokerFactory> factories,
+                             ResponseProcessorChain responseProcessorChain) {
+        return new RpcProxy(identifyMappingChain, factories, responseProcessorChain);
     }
 
     /**

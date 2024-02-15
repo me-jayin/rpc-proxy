@@ -1,5 +1,6 @@
 package xyz.me4cxy.proxy.core.response.chain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,8 +14,7 @@ public class ResponseProcessorChain {
 
     private List<ResponseProcessor> chain;
 
-    public ResponseProcessorChain(List<ResponseProcessor> processor) {
-        this.chain = processor.stream().filter(v -> v != null && v != this).collect(Collectors.toList());
+    public ResponseProcessorChain() {
     }
 
     public Object process(Object result) {
@@ -25,6 +25,22 @@ public class ResponseProcessorChain {
             }
         }
         return v;
+    }
+
+    public ResponseProcessorChain addProcessor(ResponseProcessor processor) {
+        if (chain == null) {
+            chain = new ArrayList<>();
+        }
+        chain.add(processor);
+        return this;
+    }
+
+    public ResponseProcessorChain addProcessors(List<ResponseProcessor> processor) {
+        if (chain == null) {
+            chain = new ArrayList<>();
+        }
+        chain.addAll(processor);
+        return this;
     }
 
 }

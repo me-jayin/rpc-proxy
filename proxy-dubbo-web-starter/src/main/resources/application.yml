@@ -5,11 +5,18 @@ dubbo:
   registry:
     address: zookeeper://localhost:2181
 
+spring:
+  jackson:
+    serialization:
+      # 设置date统一返回时间戳
+      write-dates-as-timestamps: true
+
 xyz:
   me4cxy:
     rpc-proxy:
       dubbo:
         package-prefix: xyz.me4cxy
+
 server:
   port: 9999
 

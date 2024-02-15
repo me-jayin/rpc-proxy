@@ -1,4 +1,4 @@
-package xyz.me4cxy.proxy.dubbo.resolver;
+package xyz.me4cxy.proxy.dubbo.mapping.resolver;
 
 import com.google.common.base.CaseFormat;
 import lombok.extern.slf4j.Slf4j;

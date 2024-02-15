@@ -11,6 +11,9 @@ import xyz.me4cxy.proxy.core.response.wrapper.model.ApiResponse;
 public class DefaultResponseWrapper implements ResponseWrapper {
     @Override
     public Object wrap(Object response) {
+        if (response instanceof ApiResponse) {
+            return response;
+        }
         return ApiResponse.success(response);
     }
 }

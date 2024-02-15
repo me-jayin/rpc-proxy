@@ -1,5 +1,6 @@
 package xyz.me4cxy.proxy.core.config;
 
+import xyz.me4cxy.proxy.core.response.chain.ClassValueRemoveProcessor;
 import xyz.me4cxy.proxy.core.response.chain.ResponseProcessor;
 import xyz.me4cxy.proxy.core.response.chain.ResponseWrapperProcessor;
 import xyz.me4cxy.proxy.core.response.wrapper.DefaultResponseWrapper;
@@ -22,6 +23,8 @@ public class DefaultProxyConfiguration implements ProxyConfiguration {
      */
     public List<ResponseProcessor> responseProcessors() {
         List<ResponseProcessor> processors = new ArrayList<>();
+        // 类信息移除处理器
+        processors.add(new ClassValueRemoveProcessor());
         // 默认拼接响应结果包装类
         processors.add(new ResponseWrapperProcessor(responseWrapper()));
         return processors;

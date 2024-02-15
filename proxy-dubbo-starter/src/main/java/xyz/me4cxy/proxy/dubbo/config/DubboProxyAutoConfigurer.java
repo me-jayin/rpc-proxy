@@ -10,9 +10,9 @@ import xyz.me4cxy.proxy.dubbo.invoker.matcher.DefaultProxyRequestMethodMatcher;
 import xyz.me4cxy.proxy.dubbo.invoker.matcher.MethodMatcher;
 import xyz.me4cxy.proxy.dubbo.mapping.PathRuleProxyIdentifyMapping;
 import xyz.me4cxy.proxy.dubbo.invoker.ServiceMetadataInvokerFactory;
-import xyz.me4cxy.proxy.dubbo.resolver.DubboProxyConfig;
-import xyz.me4cxy.proxy.dubbo.resolver.PathAndHeaderRuleIdentifyResolver;
-import xyz.me4cxy.proxy.dubbo.resolver.PathRuleProxyIdentifyResolver;
+import xyz.me4cxy.proxy.dubbo.mapping.resolver.DubboProxyConfig;
+import xyz.me4cxy.proxy.dubbo.mapping.resolver.PathAndHeaderRuleIdentifyResolver;
+import xyz.me4cxy.proxy.dubbo.mapping.resolver.PathRuleProxyIdentifyResolver;
 
 import javax.annotation.Resource;
 

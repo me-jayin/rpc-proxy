@@ -8,13 +8,13 @@ import org.springframework.core.Ordered;
  * @author jayin
  * @since 2024/01/06
  */
-public interface ResponseProcessor<T, R> extends Ordered {
+public interface ResponseProcessor extends Ordered {
 
     /**
      * 处理响应结果
      * @return
      */
-    R process(T result);
+    Object process(Object result);
 
     /**
      * 判断是否支持

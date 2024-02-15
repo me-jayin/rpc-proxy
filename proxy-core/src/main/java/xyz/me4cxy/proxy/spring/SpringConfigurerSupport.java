@@ -4,6 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -24,7 +25,10 @@ public abstract class SpringConfigurerSupport implements ApplicationContextAware
     }
 
     public <T> List<T> autowiredAndInitializeBean(List<T> beans) {
-        return autowiredAndInitializeBean(beans);
+        if (CollectionUtils.isEmpty(beans)) {
+            return beans;
+        }
+        return beans.stream().map(this::autowiredAndInitializeBean).collect(Collectors.toList());
     }
 
     public <T> List<T> autowiredAndInitializeBean(List<T> beans, Comparator<T> comparator) {

@@ -1,10 +1,14 @@
 package xyz.me4cxy.test.entity;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * 用户实体
+ *
  * @author jayin
  * @since 2024/01/01
  */
@@ -18,10 +22,14 @@ public class User implements Serializable {
     private List<Integer> roleIds;
 
     private CustomDate birthday;
+
     public User(Long id, String username, Integer age) {
         this.id = id;
         this.username = username;
         this.age = age;
+        this.position = Position.DOCTOR;
+        this.roleIds = Arrays.asList(1, 2, 3);
+        this.birthday = new CustomDate();
     }
 
     public List<Integer> getRoleIds() {

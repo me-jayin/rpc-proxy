@@ -38,10 +38,13 @@ public class ProxyResponseProcessorChainAutoConfigurer extends SpringConfigurerS
      */
     @Bean
     @ConditionalOnMissingBean(ResponseProcessorChain.class)
-    public ResponseProcessorChain responseProcessorChain(ProxyConfiguration configuration) {
-        List<ResponseProcessor> processors = configuration.responseProcessors();
-        Assert.notEmpty(processors, "响应结果处理器不能为空");
-        return new ResponseProcessorChain(autowiredAndInitializeBean(processors, Comparator.comparing(ResponseProcessor::getOrder)));
+    public ResponseProcessorChain responseProcessorChain(ProxyConfiguration config) {
+        ResponseProcessorChain chain = new ResponseProcessorChain();
+        List<ResponseProcessor> responseProcessors = config.responseProcessors();
+        if (responseProcessors != null) {
+            chain.addProcessors(autowiredAndInitializeBean(responseProcessors));
+        }
+        return chain;
     }
 
 }

@@ -1,4 +1,4 @@
-package xyz.me4cxy.proxy.dubbo.resolver;
+package xyz.me4cxy.proxy.dubbo.mapping.resolver;
 
 import xyz.me4cxy.proxy.core.ProxyRequestContext;
 import xyz.me4cxy.proxy.core.ProxyIdentify;
