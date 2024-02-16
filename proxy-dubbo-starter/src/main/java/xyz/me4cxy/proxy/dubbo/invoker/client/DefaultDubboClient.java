@@ -4,17 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.rpc.model.ApplicationModel;
 import org.apache.dubbo.rpc.service.GenericService;
-import org.checkerframework.checker.units.qual.C;
 import xyz.me4cxy.proxy.dubbo.core.Cleaner;
 import xyz.me4cxy.proxy.dubbo.core.CleanerRegistry;
 import xyz.me4cxy.proxy.dubbo.invoker.ServiceIdentify;
 import xyz.me4cxy.proxy.dubbo.metadata.method.ProxyMethodMetadata;
-import xyz.me4cxy.proxy.dubbo.metadata.method.ProxyMethodParameterMetadata;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 默认dubbo客户端
@@ -84,6 +80,7 @@ public class DefaultDubboClient implements DubboClient {
         reference.setInterface(service);
         reference.setGroup(group);
         reference.setVersion(version);
+        reference.setRetries(0); // 不重试
         return reference;
     }
 
