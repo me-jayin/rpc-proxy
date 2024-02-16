@@ -1,15 +1,18 @@
 package xyz.me4cxy.proxy.autoconfig;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import xyz.me4cxy.proxy.core.ProxyIdentify;
 import xyz.me4cxy.proxy.core.RpcProxy;
+import xyz.me4cxy.proxy.core.interceptor.ProxyInterceptor;
 import xyz.me4cxy.proxy.core.invoker.InvokerFactory;
 import xyz.me4cxy.proxy.core.mapping.ProxyIdentifyMapping;
 import xyz.me4cxy.proxy.core.mapping.ProxyIdentifyMappingChain;
 import xyz.me4cxy.proxy.core.response.chain.ResponseProcessorChain;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,8 +34,14 @@ public class ProxyAutoConfigurer {
     @ConditionalOnMissingBean
     public RpcProxy rpcProxy(ProxyIdentifyMappingChain identifyMappingChain,
                              List<InvokerFactory> factories,
-                             ResponseProcessorChain responseProcessorChain) {
-        return new RpcProxy(identifyMappingChain, factories, responseProcessorChain);
+                             ResponseProcessorChain responseProcessorChain,
+                             @Autowired(required = false) List<ProxyInterceptor> interceptors) {
+        return new RpcProxy(
+                identifyMappingChain,
+                factories,
+                responseProcessorChain,
+                interceptors == null ? Collections.emptyList() : interceptors
+        );
     }
 
     /**

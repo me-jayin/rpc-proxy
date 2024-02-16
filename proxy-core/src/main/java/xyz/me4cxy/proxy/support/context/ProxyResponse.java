@@ -1,5 +1,8 @@
 package xyz.me4cxy.proxy.support.context;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -24,4 +27,15 @@ public interface ProxyResponse {
      */
     void addAdditional(Map<String, List<String>> addis);
 
+    /**
+     * 获取输出流
+     * @return
+     */
+    OutputStream getOutputStream() throws IOException;
+
+    /**
+     * 输出
+     * @return
+     */
+    PrintWriter getWriter() throws IOException;
 }

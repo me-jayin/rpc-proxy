@@ -1,6 +1,7 @@
 package xyz.me4cxy.proxy.core;
 
 import lombok.extern.slf4j.Slf4j;
+import xyz.me4cxy.proxy.core.interceptor.ProxyInterceptor;
 import xyz.me4cxy.proxy.core.invoker.Invoker;
 import xyz.me4cxy.proxy.core.invoker.InvokerFactory;
 import xyz.me4cxy.proxy.core.mapping.ProxyIdentifyMappingChain;
@@ -30,13 +31,19 @@ public class RpcProxy {
      * 响应处理链
      */
     private final ResponseProcessorChain responseProcessorChain;
+    /**
+     * 拦截器
+     */
+    private final List<ProxyInterceptor> interceptors;
 
     public RpcProxy(ProxyIdentifyMappingChain identifyMappingChain,
                     List<InvokerFactory> factories,
-                    ResponseProcessorChain processorChain) {
+                    ResponseProcessorChain processorChain,
+                    List<ProxyInterceptor> interceptors) {
         this.identifyMappingChain = identifyMappingChain;
         this.factories = factories;
         this.responseProcessorChain = processorChain;
+        this.interceptors = interceptors;
     }
 
     public Object proxy(ProxyRequestContext context) {
@@ -48,14 +55,21 @@ public class RpcProxy {
         log.info("请求路径映射后取到代理信息：{}", identify);
 
         // 创建代理调用上下文
-        InvokerFactory factory = factories.stream().filter(f -> f.isSupport(identify)).findFirst().orElse(null);
+        InvokerFactory factory = factories.stream().filter(f -> f.isSupport(context, identify)).findFirst().orElse(null);
         if (factory == null) {
             throw new IdentifyNotSupportException(identify);
         }
         Invoker<ProxyIdentify> invoker = factory.createInvoker(identify);
         log.debug("代理标识 {} 创建调用器成功：{}", identify.identifyKey(), invoker);
 
-        // TODO 执行前置拦截器等
+        // 执行前置拦截器等
+        for (ProxyInterceptor interceptor : interceptors) {
+            if (interceptor.isSupport(context, identify) && !interceptor.before(context, identify, invoker)) {
+                log.debug("请求 {} 不被拦截器 {} 允许", context, interceptor);
+                return null;
+            }
+        }
+
         // 进行实际调用
         Object res = invoker.invoke(context);
         // 对响应结果进行封装

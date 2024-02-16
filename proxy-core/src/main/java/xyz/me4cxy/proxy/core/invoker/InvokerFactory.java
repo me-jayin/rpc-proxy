@@ -1,6 +1,7 @@
 package xyz.me4cxy.proxy.core.invoker;
 
 import xyz.me4cxy.proxy.core.ProxyIdentify;
+import xyz.me4cxy.proxy.core.ProxyRequestContext;
 
 /**
  * 调用器factory
@@ -19,9 +20,11 @@ public interface InvokerFactory<T extends ProxyIdentify> {
 
     /**
      * 判断是否支持当前identify来创建调用器
+     *
+     * @param context
      * @param identify
      * @return
      */
-    boolean isSupport(ProxyIdentify identify);
+    boolean isSupport(ProxyRequestContext context, ProxyIdentify identify);
 
 }

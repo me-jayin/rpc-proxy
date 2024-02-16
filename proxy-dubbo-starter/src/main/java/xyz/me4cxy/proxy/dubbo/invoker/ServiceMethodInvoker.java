@@ -81,7 +81,6 @@ public class ServiceMethodInvoker implements Invoker<DubboProxyIdentify> {
         ProxyMethodMetadata method = matchResult.get(0);
         // 2.获取属性
         Object[] args = resolveArguments(method.getParams(), context.getRequest());
-
         // 进行dubbo实际调用
         return dubboClient.invoke(serviceIdentify, method, args);
     }

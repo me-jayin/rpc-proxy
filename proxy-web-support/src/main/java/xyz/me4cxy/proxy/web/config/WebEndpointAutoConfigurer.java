@@ -14,6 +14,7 @@ import xyz.me4cxy.proxy.core.ProxyRequestContext;
 import xyz.me4cxy.proxy.core.RpcProxy;
 import xyz.me4cxy.proxy.exception.ProxyException;
 import xyz.me4cxy.proxy.web.http.ProxyHttpServletRequest;
+import xyz.me4cxy.proxy.web.http.ProxyHttpServletResponse;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -59,18 +60,16 @@ public class WebEndpointAutoConfigurer {
          */
         @RequestMapping
         public Object proxyBody(@RequestBody(required = false) String body) {
-            long t = System.currentTimeMillis();
             try {
                 return rpcProxy.proxy(
                         ProxyRequestContext.builder()
                                 .request(ProxyHttpServletRequest.builder().request(request).body(body).build())
+                                .response(ProxyHttpServletResponse.builder().response(response).build())
                                 .build()
                 );
             } catch (ProxyException e) {
                 log.error(e.getInnerMessage());
                 throw e;
-            } finally {
-                System.out.println("耗时：---------" + (System.currentTimeMillis() - t));
             }
         }
 
@@ -80,7 +79,7 @@ public class WebEndpointAutoConfigurer {
          * @return
          */
         @RequestMapping(consumes = "!application/json")
-        public Object proxyForm(@RequestParam String abc) throws JsonProcessingException {
+        public Object proxyForm() {
             return proxyBody(null);
         }
 

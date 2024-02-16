@@ -6,6 +6,7 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import xyz.me4cxy.proxy.core.ProxyIdentify;
+import xyz.me4cxy.proxy.core.ProxyRequestContext;
 import xyz.me4cxy.proxy.core.invoker.Invoker;
 import xyz.me4cxy.proxy.core.invoker.InvokerFactory;
 import xyz.me4cxy.proxy.dubbo.DubboProxyIdentify;
@@ -47,7 +48,7 @@ public class ServiceMetadataInvokerFactory implements InvokerFactory<DubboProxyI
     }
 
     @Override
-    public boolean isSupport(ProxyIdentify identify) {
+    public boolean isSupport(ProxyRequestContext context, ProxyIdentify identify) {
         return identify instanceof DubboProxyIdentify;
     }
 
