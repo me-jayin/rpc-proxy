@@ -85,6 +85,43 @@ method：方法名称，推荐使用“-”分割风格，如方法名findByUser
 ## 参数处理
 dubbo网关对于参数处理上，参考spring mvc的方式（部分地上采用spring mvc工具类），但由于dubbo元数据上报时不够细致，因此存在些许缺陷
 
+### 方法匹配
+由于业务提供者存在重载的情况，因此在加载完应用方法信息后，会将所有命中的方法列出，接着对方法进行匹配：
+```
+// 1.过滤出符合method以及命中参数最多的方法
+List<ProxyMethodMetadata> matchResult = methodMatcher.match(methods, context);
+log.info("当前请求 {} 匹配到方法：{}", context, matchResult);
+if (matchResult.isEmpty()) {
+    throw new ServiceMethodNotFoundException(serviceIdentify.getService() + "#" + methodName);
+} else if (matchResult.size() > 1) {
+    throw new NoUniqueServiceMethodException(serviceIdentify.getService() + "#" + methodName);
+}
+```
+
+目前提供默认匹配规则较为简单，直接根据参数名称判断参数是否存在，最后取命中多的方法作为目标方法，如：
+```
+@ProxyMethod(method = ProxyMethodType.GET)
+@ProxyParam(index = 0, name = "username")
+User find(String username);
+
+@ProxyMethod(method = ProxyMethodType.GET)
+@ProxyParam(index = 0, name = "username")
+@ProxyParam(index = 0, name = "age")
+User find(String username, Integer age);
+
+@ProxyMethod(method = ProxyMethodType.GET)
+@ProxyParam(index = 0, name = "username")
+@ProxyParam(index = 0, name = "city")
+User find(String username, String addressCity);
+```
+假如参数传入：
+```
+username: jayin
+age: 18
+```
+根据命中规则，能发现第二个方法命中2次，那么最终将匹配到方法```User find(String username, Integer age)```
+
+
 ### 数据装配
 #### 普通参数传参
 与spring mvc不同，由于在 `ProxyParam` 中指定了**参数名**，因此在数据装配时，会找到对应参数名称开头的参数，如：
