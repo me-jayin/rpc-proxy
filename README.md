@@ -25,3 +25,6 @@ public interface UserService {
 }
 ```
 上面例子中，通过多个 ```ProxyParam``` 注解，来描述```id```和```user```的参数位置及名称，这样在网关中即可根据参数列表来进行处理
+
+# 实现例子
+* [dubbo-proxy](./dubbo-proxy/README.md)
